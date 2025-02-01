@@ -39,3 +39,7 @@ variable "enable_dns_hostnames" {
   type        = bool
   default     = true
 }
+variable "security_groups"{
+type=string
+description="security group"
+}
