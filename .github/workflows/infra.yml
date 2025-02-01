@@ -160,7 +160,6 @@ jobs:
           header: "Terraform Documentation 📖"
           path: "Infra/Environments/${{ github.event.inputs.environment || 'dev' }}/README.md"
     
-
       # Step: Apply Terraform if PR is merged
       - name: Apply Terraform on Merge the PR
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
