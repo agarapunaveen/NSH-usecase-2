@@ -42,7 +42,7 @@ jobs:
         docker push ${{ secrets.ECR_APPOINTMENT_URL }}:latest
 
     # Optionally, remove local Docker images after pushing
-    - name: Cleanup local Docker images
-      run: |
-        docker rmi ${{ secrets.AWS_ECR_PATIENT_URL }}:latest
-        docker rmi ${{ secrets.AWS_ECR_APPOINTMENT_URL }}:latest
+    # - name: Cleanup local Docker images
+      # run: |
+        # docker rmi ${{ secrets.AWS_ECR_PATIENT_URL }}:latest
+        # docker rmi ${{ secrets.AWS_ECR_APPOINTMENT_URL }}:latest
