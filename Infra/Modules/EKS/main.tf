@@ -43,7 +43,7 @@ resource "aws_security_group" "eks_sg" {
   }
 }
 
-resource "aws_eks_cluster" "eks" {
+/*resource "aws_eks_cluster" "eks" {
   name     = var.cluster_name
   role_arn = var.eks_cluster_role_arn
 
@@ -75,12 +75,33 @@ resource "aws_eks_node_group" "eks_nodes" {
   }
 
   depends_on = [aws_eks_cluster.eks]
+} */
+
+
+module "eks" {
+  source = "terraform-aws-modules/eks/aws"
+  
+  cluster_name    = "my-eks-cluster"
+  cluster_version = "1.27"
+  
+  vpc_id          = module.vpc.vpc_id
+  subnet_ids      = module.vpc.private_subnets
+  
+  eks_managed_node_groups = {
+    default = {
+      min_size     = 1
+      max_size     = 3
+      desired_size = 2
+
+      instance_types = ["t3.medium"]
+    }
+  }
 }
 
 
 
 
-resource "kubernetes_deployment" "Appointmentdeployment" {
+/*resource "kubernetes_deployment" "Appointmentdeployment" {
   metadata {
     name      = "appointment-deployment"
     namespace = "default"
@@ -177,3 +198,75 @@ resource "kubernetes_service" "PatientService" {
     type = "LoadBalancer"
   }
 }
+
+
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+  }
+}
+
+resource "kubernetes_deployment" "app" {
+  metadata {
+    name = "my-app"
+    labels = {
+      app = "my-app"
+    }
+  }
+
+  spec {
+    replicas = 2
+
+    selector {
+      match_labels = {
+        app = "my-app"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "my-app"
+        }
+      }
+
+      spec {
+        container {
+          image = "your-docker-image:tag"  # Replace with your image
+          name  = "my-app"
+
+          port {
+            container_port = 80
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_service" "app" {
+  metadata {
+    name = "my-app"
+  }
+
+  spec {
+    selector = {
+      app = "my-app"
+    }
+
+    port {
+      port        = 80
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
+  }
+}
+
+
+*/
