@@ -1,7 +1,7 @@
 # ------------------------------
 # EKS Cluster Outputs
 # ------------------------------
-output "eks_cluster_id" {
+/*output "eks_cluster_id" {
   description = "EKS cluster ID"
   value       = aws_eks_cluster.eks.id
 }
@@ -32,13 +32,13 @@ output "cluster_endpoint" {
 
 output "cluster_certificate_authority_data" {
   value = aws_eks_cluster.eks.certificate_authority[0].data
-}
+} */
 
 
 # ------------------------------
 # Node Group Outputs
 # ------------------------------
-output "eks_node_group_id" {
+/*output "eks_node_group_id" {
   description = "EKS node group ID"
   value       = aws_eks_node_group.eks_nodes.id
 }
@@ -51,4 +51,4 @@ output "eks_node_group_arn" {
 output "eks_node_group_status" {
   description = "Current status of the EKS node group"
   value       = aws_eks_node_group.eks_nodes.status
-}
+} */
