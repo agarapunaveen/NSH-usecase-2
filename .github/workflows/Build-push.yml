@@ -27,17 +27,19 @@ jobs:
     - name: Build, Tag & Push Docker Image for Patient Service
       run: |
         cd App/Patient/
-        docker build -t patient-service:latest -f Dockerfile .
-        docker tag patient-service:latest ${{ secrets.AWS_ECR_PATIENT_URL }}:latest
-        docker push ${{ secrets.AWS_ECR_PATIENT_URL }}:latest
+        # docker build -t patient-service:latest -f Dockerfile .
+        docker build -t hackthon/usecase-2-patient .
+        docker tag hackthon/usecase-2-patient:latest ${{ secrets.ECR_PATIENT_URL }}:latest
+        docker push ${{ secrets.ECR_PATIENT_URL }}:latest
 
     # Build, tag, and push Docker image for Appointment Service
     - name: Build, Tag & Push Docker Image for Appointment Service
       run: |
         cd App/Appointment/
-        docker build -t appointment-service:latest -f Dockerfile .
-        docker tag appointment-service:latest ${{ secrets.AWS_ECR_APPOINTMENT_URL }}:latest
-        docker push ${{ secrets.AWS_ECR_APPOINTMENT_URL }}:latest
+        # docker build -t appointment-service:latest -f Dockerfile .
+        docker build -t hackthon/usecase-2-appointment .
+        docker tag hackthon/usecase-2-appointment:latest ${{ secrets.ECR_APPOINTMENT_URL }}:latest
+        docker push ${{ secrets.ECR_APPOINTMENT_URL }}:latest
 
     # Optionally, remove local Docker images after pushing
     - name: Cleanup local Docker images
