@@ -54,7 +54,7 @@ resource "aws_iam_policy" "eks_k8s_access" {
 }
 
 resource "aws_iam_user_policy_attachment" "attach_k8s_access_policy" {
-  user       = "terraform-user"
+  user       = "terraform-1"
   policy_arn = aws_iam_policy.eks_k8s_access.arn
 }
 
