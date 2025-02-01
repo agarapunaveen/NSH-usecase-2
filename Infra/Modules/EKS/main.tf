@@ -122,7 +122,7 @@ resource "kubernetes_service" "AppointmentService" {
     }
     port {
       protocol   = "TCP"
-      port       =  80
+      port       =  3001
       target_port = 3001
     }
     type = "LoadBalancer"
@@ -171,7 +171,7 @@ resource "kubernetes_service" "PatientService" {
     }
     port {
       protocol   = "TCP"
-      port       = 80
+      port       = 3000
       target_port = 3000
     }
     type = "LoadBalancer"
