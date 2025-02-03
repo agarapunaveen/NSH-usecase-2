@@ -15,7 +15,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 }
 
 resource "aws_iam_role" "eks_node_role" {
-  name = "eks-node-role"
+  name = "eks-node-role-new"
   assume_role_policy = jsonencode({
     Statement = [{
       Effect = "Allow"
