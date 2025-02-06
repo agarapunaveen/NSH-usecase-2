@@ -38,7 +38,7 @@ jobs:
       - name: Destroy Resources
         run: |
          cd ./infra/environments/${{ github.event.inputs.environment || 'dev' }}
-         terraform destroy -auto-approve -var-file="${{ github.event.inputs.environment || 'dev' }}.tfvars"
+         terraform destroy -auto-approve -var-file="${{ github.event.inputs.environment || 'dev' }}-var.tfvars"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
