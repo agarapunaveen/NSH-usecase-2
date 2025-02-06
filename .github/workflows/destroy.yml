@@ -1,10 +1,10 @@
-name: Destroy AWS Infrastructure with Terraform
+name: Destroy AWS Infrastructure with Terraform IAC.
 
 on:
-  workflow_dispatch: # Manually trigger the workflow
+  workflow_dispatch: 
    inputs:
     environment:
-        description: "Environment to deploy (e.g., dev, staging, prod)"
+        description: "Choose the environment to Destrioy (Dev, Staging, Prod)"
         required: true
         default: "dev"
         type: choice
@@ -14,7 +14,7 @@ on:
         - prod
 
 jobs:
-  destroy:
+  destroy-infra:
     name: Destroy Terraform Resources
     runs-on: ubuntu-latest
 
@@ -29,7 +29,7 @@ jobs:
 
       - name: Terraform Init
         run: | 
-          cd Infra/Environments/${{ github.event.inputs.environment || 'dev' }}
+          cd ./infra/environments/${{ github.event.inputs.environment || 'dev' }}
           terraform init
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -37,8 +37,8 @@ jobs:
 
       - name: Destroy Resources
         run: |
-         cd Infra/Environments/${{ github.event.inputs.environment || 'dev' }}
-         terraform destroy -auto-approve -var-file="${{ github.event.inputs.environment || 'dev' }}-var.tfvars"
+         cd ./infra/environments/${{ github.event.inputs.environment || 'dev' }}
+         terraform destroy -auto-approve -var-file="${{ github.event.inputs.environment || 'dev' }}.tfvars"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
