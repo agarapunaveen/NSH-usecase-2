@@ -89,7 +89,7 @@ resource "kubernetes_deployment" "Appointmentdeployment" {
     replicas = 1
     selector {
       match_labels = {
-        app = "appointment-deployment"  # Ensure this matches the service selector
+        app = "appointment-deployment"  # Ensure this matches the service selectors
       }
     }
     template {
