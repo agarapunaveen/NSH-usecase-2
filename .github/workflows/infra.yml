@@ -59,7 +59,7 @@ jobs:
       - name: Run TFLint
         run: |
           cd Infra/Environments/${{ github.event.inputs.environment || 'dev' }}
-          continue-on-error: true
+          
 
            # Ensure .tflint.hcl exists
           if [ ! -f ".tflint.hcl" ]; then
