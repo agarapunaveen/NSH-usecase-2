@@ -60,7 +60,7 @@ jobs:
         run: |
           cd Infra/Environments/${{ github.event.inputs.environment || 'dev' }}
 
-           Ensure .tflint.hcl exists
+           # Ensure .tflint.hcl exists
           if [ ! -f ".tflint.hcl" ]; then
              cat <<EOF > .tflint.hcl
              plugin "terraform" {
