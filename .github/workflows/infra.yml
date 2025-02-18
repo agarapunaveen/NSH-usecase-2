@@ -59,6 +59,7 @@ jobs:
       - name: Run TFLint
         run: |
           cd Infra/Environments/${{ github.event.inputs.environment || 'dev' }}
+          continue-on-error: true
 
            # Ensure .tflint.hcl exists
           if [ ! -f ".tflint.hcl" ]; then
@@ -79,7 +80,7 @@ jobs:
            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
           checkov -d . --quiet --framework terraform
-          continue-on-error: true
+        
        # Step: Install Checkov
       - name: Install Checkov
         run: |
