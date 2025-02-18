@@ -55,12 +55,12 @@ jobs:
           tflint --version
 
 
-      Step: Run TFLint
-       - name: Run TFLint
-         run: |
+      # Step: Run TFLint
+      - name: Run TFLint
+        run: |
           cd Infra/Environments/${{ github.event.inputs.environment || 'dev' }}
 
-          # Ensure .tflint.hcl exists
+           Ensure .tflint.hcl exists
           if [ ! -f ".tflint.hcl" ]; then
              cat <<EOF > .tflint.hcl
              plugin "terraform" {
@@ -72,26 +72,26 @@ jobs:
           # Install TFLint plugin (Terraform)
           tflint --init
 
-      #    # Run TFLint with proper syntax
+          # Run TFLint with proper syntax
           tflint --config .tflint.hcl
-         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          env:
+           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-       checkov -d . --quiet --framework terraform
-       Step: Install Checkov
+          checkov -d . --quiet --framework terraform
+       # Step: Install Checkov
       - name: Install Checkov
         run: |
           pip install checkov
           checkov --version
 
-       Step: Run Checkov Security Scan
-       - name: Run Checkov
-         run: |
+       # Step: Run Checkov Security Scan
+      - name: Run Checkov
+        run: |
            cd Infra/Environments/${{ github.event.inputs.environment || 'dev' }}
            checkov --directory . --skip-check CKV_AWS_*,CKV2_AWS_*
-         env:
-           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           
       # Step: Terraform Init
