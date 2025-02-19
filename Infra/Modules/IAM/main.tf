@@ -1,5 +1,5 @@
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "eks-clusters_aim"
+  name = "eks-clusters_iam"
   assume_role_policy = jsonencode({
     Statement = [{
       Effect = "Allow"
@@ -15,7 +15,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 }
 
 resource "aws_iam_role" "eks_node_role" {
-  name = "eks-nodesssss_aim"
+  name = "eks-node_iam"
   assume_role_policy = jsonencode({
     Statement = [{
       Effect = "Allow"
@@ -26,7 +26,7 @@ resource "aws_iam_role" "eks_node_role" {
 }
 
 resource "aws_iam_policy" "eks_k8s_access" {
-  name        = "eks-k8ssssss_aim"
+  name        = "eks-k8s_iam"
   description = "Policy to grant Kubernetes RBAC access to the EKS cluster"
 
   policy = jsonencode({
